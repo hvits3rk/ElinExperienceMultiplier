@@ -7,11 +7,42 @@ public class ElementContainerPatches
 {
     [HarmonyPrefix]
     [HarmonyPatch(typeof(ElementContainer), nameof(ElementContainer.ModExp))]
-    public static void LianDanPanel_StartLianDan_Prefix(ref ElementContainer __instance, int ele, ref int a, bool chain)
+    public static void ElementContainerModExp_Prefix(ref ElementContainer __instance, int ele, ref int a, bool chain)
     {
-        if (__instance is { Chara.IsPC: true })
+        var chara = __instance.Chara;
+
+        if (chara == null || !chara.isChara || chara.isDead) return;
+
+        var multipliedExp = Mathf.RoundToInt(a * PluginSettings.ExperienceMultiplier.Value);
+
+        if (PluginSettings.MainCharacter.Value)
         {
-            a = Mathf.RoundToInt(a * PluginSettings.ExperienceMultiplier.Value);
+            if (chara.IsPC) a = multipliedExp;
         }
+        if (PluginSettings.Faction.Value)
+        {
+            if (chara.IsPCFaction && !chara.IsPC && !chara.IsPCParty) a = multipliedExp;
+        }
+        if (PluginSettings.Party.Value)
+        {
+            if (chara.IsPCParty && !chara.IsPC) a = multipliedExp;
+        }
+        if (PluginSettings.PlayerMinion.Value)
+        {
+            if (IsPCMinion(chara)) a = multipliedExp;
+        }
+        if (PluginSettings.FactionMinion.Value)
+        {
+            if (chara.IsPCFactionMinion && !IsPCMinion(chara) && !chara.IsPCPartyMinion) a = multipliedExp;
+        }
+        if (PluginSettings.PartyMinion.Value)
+        {
+            if (chara.IsPCPartyMinion && !IsPCMinion(chara)) a = multipliedExp;
+        }
+    }
+
+    private static bool IsPCMinion(Chara chara)
+    {
+        return chara.master != null && chara.master == EClass.pc;
     }
 }
