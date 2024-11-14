@@ -4,7 +4,7 @@
         <TargetFramework>net472</TargetFramework>
         <AssemblyName>ExperienceMultiplier</AssemblyName>
         <Product>Experience Multiplier</Product>
-        <Version>0.23.16.1</Version>
+        <Version>0.23.26.1</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
         <RestoreAdditionalProjectSources>
@@ -18,16 +18,21 @@
 
     <ItemGroup>
         <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all"/>
-        <PackageReference Include="BepInEx.Unity.Mono" Version="6.0.0-be.*" IncludeAssets="compile"/>
         <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*"/>
         <PackageReference Include="UnityEngine.Modules" Version="2021.3.34" IncludeAssets="compile"/>
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
-        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all"/>
+        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup>
+        <Reference Include="0Harmony">
+          <HintPath>..\_libs\0Harmony.dll</HintPath>
+        </Reference>
+        <Reference Include="BepInEx.Core">
+          <HintPath>..\_libs\BepInEx.Core.dll</HintPath>
+        </Reference>
         <Reference Include="BepInEx.Unity">
             <HintPath>..\_libs\BepInEx.Unity.dll</HintPath>
         </Reference>

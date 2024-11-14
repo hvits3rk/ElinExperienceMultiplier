@@ -1,4 +1,4 @@
-﻿Multiplier for experience gain.
+﻿Multiplier for experience and potential gain.
 
 [h3]How to configure[/h3]
 The configuration file will be generated after the game is launched.
@@ -11,4 +11,6 @@ By default, the multiplier is set to [b]2x[/b].
 [h3]TODO[/h3]
 [list]
     [*][strike]Select who will receive the experience multiplier[/strike]
+    [*][strike]Potential multiplier and potential max value[/strike]
+    [*]Settings modification without game restart
 [/list]
