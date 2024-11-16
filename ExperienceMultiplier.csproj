@@ -4,7 +4,7 @@
         <TargetFramework>net472</TargetFramework>
         <AssemblyName>ExperienceMultiplier</AssemblyName>
         <Product>Experience Multiplier</Product>
-        <Version>0.23.26.1</Version>
+        <Version>0.23.29.1</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
         <RestoreAdditionalProjectSources>
@@ -42,5 +42,15 @@
         <Reference Include="Plugins.BaseCore">
             <HintPath>..\_libs\Plugins.BaseCore.dll</HintPath>
         </Reference>
+        <Reference Include="Plugins.UI">
+          <HintPath>..\_libs\Plugins.UI.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UI">
+          <HintPath>..\_libs\UnityEngine.UI.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="UISettingsWindow.cs" />
     </ItemGroup>
 </Project>

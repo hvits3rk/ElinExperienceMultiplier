@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 using System.Reflection.Emit;
 using HarmonyLib;
 using UnityEngine;
@@ -28,10 +29,30 @@ public class ElementContainerPatches
                 new CodeMatch(OpCodes.Ldarg_2),
                 new CodeMatch(OpCodes.Ldloc_1),
                 new CodeMatch(OpCodes.Ldc_I4_S),
-                new CodeMatch(OpCodes.Ldc_I4),
-                new CodeMatch(OpCodes.Call, AccessTools.Method(typeof(Mathf), "Clamp", [typeof(int), typeof(int), typeof(int)])))
+                new CodeMatch(OpCodes.Ldc_I4)
+                )
             .Advance(3)
             .SetOperandAndAdvance(PluginSettings.MaxPotential.Value)
+            .MatchForward(false,
+                new CodeMatch(OpCodes.Ldloc_0),
+                new CodeMatch(OpCodes.Dup),
+                new CodeMatch(OpCodes.Ldfld),
+                new CodeMatch(OpCodes.Ldloc_0),
+                new CodeMatch(OpCodes.Ldfld),
+                new CodeMatch(OpCodes.Ldc_I4_4),
+                new CodeMatch(OpCodes.Div),
+                new CodeMatch(OpCodes.Ldc_I4_5),
+                new CodeMatch(OpCodes.Call),
+                new CodeMatch(OpCodes.Add),
+                new CodeMatch(OpCodes.Ldc_I4_5),
+                new CodeMatch(OpCodes.Add))
+            .Advance(12)
+            .InsertAndAdvance(
+                new CodeInstruction(OpCodes.Conv_R4),
+                new CodeInstruction(OpCodes.Ldc_R4, PluginSettings.PotentialLossMultiplier.Value),
+                new CodeInstruction(OpCodes.Mul),
+                new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(Mathf), "FloorToInt", [typeof(float)]))
+                )
             .InstructionEnumeration();
     }
 
@@ -42,7 +63,7 @@ public class ElementContainerPatches
         var chara = __instance.Chara;
 
         if (chara == null || !chara.isChara || chara.isDead) return;
-        
+
         v = MultiplierValue(chara, v, PluginSettings.PotentialMultiplier.Value);
     }
 
@@ -52,14 +73,17 @@ public class ElementContainerPatches
         IEnumerable<CodeInstruction> instructions)
     {
         return new CodeMatcher(instructions)
-            .MatchForward(true,
+            .MatchForward(false,
                 new CodeMatch(OpCodes.Ldloc_0),
                 new CodeMatch(OpCodes.Ldfld),
                 new CodeMatch(OpCodes.Ldc_I4))
+            .Advance(2)
             .SetOperandAndAdvance(PluginSettings.MaxPotential.Value)
-            .MatchForward(true,
+            .MatchForward(false,
                 new CodeMatch(OpCodes.Ldloc_0),
-                new CodeMatch(OpCodes.Ldc_I4))
+                new CodeMatch(OpCodes.Ldc_I4),
+                new CodeMatch(OpCodes.Stfld))
+            .Advance(1)
             .SetOperandAndAdvance(PluginSettings.MaxPotential.Value)
             .InstructionEnumeration();
     }
@@ -71,7 +95,7 @@ public class ElementContainerPatches
         var chara = __instance.Chara;
 
         if (chara == null || !chara.isChara || chara.isDead) return;
-        
+
         v = MultiplierValue(chara, v, PluginSettings.PotentialMultiplier.Value);
     }
 
@@ -81,14 +105,17 @@ public class ElementContainerPatches
         IEnumerable<CodeInstruction> instructions)
     {
         return new CodeMatcher(instructions)
-            .MatchForward(true,
+            .MatchForward(false,
                 new CodeMatch(OpCodes.Ldloc_0),
                 new CodeMatch(OpCodes.Ldfld),
                 new CodeMatch(OpCodes.Ldc_I4))
+            .Advance(2)
             .SetOperandAndAdvance(PluginSettings.MaxPotential.Value)
-            .MatchForward(true,
+            .MatchForward(false,
                 new CodeMatch(OpCodes.Ldloc_0),
-                new CodeMatch(OpCodes.Ldc_I4))
+                new CodeMatch(OpCodes.Ldc_I4),
+                new CodeMatch(OpCodes.Stfld))
+            .Advance(1)
             .SetOperandAndAdvance(PluginSettings.MaxPotential.Value)
             .InstructionEnumeration();
     }

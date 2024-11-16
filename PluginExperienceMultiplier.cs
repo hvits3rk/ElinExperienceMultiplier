@@ -4,7 +4,7 @@ using HarmonyLib;
 
 namespace ExperienceMultiplier;
 
-[BepInPlugin("hvits3rk.experiencemultiplier", "Experience Multiplier", "0.23.26.1")]
+[BepInPlugin("hvits3rk.experiencemultiplier", "Experience Multiplier", "0.23.29.1")]
 public class PluginExperienceMultiplier : BaseUnityPlugin
 {
     internal static new ManualLogSource Logger;
@@ -19,6 +19,7 @@ public class PluginExperienceMultiplier : BaseUnityPlugin
 
         Logger.LogInfo("Applying patches for [ Experience Multiplier ] plugin.");
         Harmony.CreateAndPatchAll(typeof (ElementContainerPatches));
+        Harmony.CreateAndPatchAll(typeof (AI_IdlePatches));
         Logger.LogInfo("Successfully applied patches for [ Experience Multiplier ] plugin.");
 
         Logger.LogInfo("Plugin [ Experience Multiplier ] is loaded!");

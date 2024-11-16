@@ -20,6 +20,11 @@ public class PluginSettings
     private const float DefaultPotentialMultiplierValue = 1.0f;
     public static ConfigEntry<float> PotentialMultiplier;
 
+    private const float MinPotentialLossMultiplierAcceptableValue = 0.0f;
+    private const float MaxPotentialLossMultiplierAcceptableValue = 10.0f;
+    private const float DefaultPotentialLossMultiplierValue = 1.0f;
+    public static ConfigEntry<float> PotentialLossMultiplier;
+
     public static ConfigEntry<bool> MainCharacter;
     public static ConfigEntry<bool> Faction;
     public static ConfigEntry<bool> Party;
@@ -43,6 +48,11 @@ public class PluginSettings
         var potentialMultiplierDescription = new ConfigDescription("Multiplier for potential gain.",
             new AcceptableValueRange<float>(MinPotentialMultiplierAcceptableValue, MaxPotentialMultiplierAcceptableValue));
         PotentialMultiplier = config.Bind(potentialMultiplierDefinition, DefaultPotentialMultiplierValue, potentialMultiplierDescription);
+
+        var potentialLossMultiplierDefinition = new ConfigDefinition("General", "PotentialLossMultiplier");
+        var potentialLossMultiplierDescription = new ConfigDescription("Multiplier for potential loss.",
+            new AcceptableValueRange<float>(MinPotentialLossMultiplierAcceptableValue, MaxPotentialLossMultiplierAcceptableValue));
+        PotentialLossMultiplier = config.Bind(potentialLossMultiplierDefinition, DefaultPotentialLossMultiplierValue, potentialLossMultiplierDescription);
 
         var mainCharacterTypeDefinition = new ConfigDefinition("CharacterType", "MainCharacter");
         var mainCharacterTypeDescription = new ConfigDescription("Is Main Character will be affected.");
