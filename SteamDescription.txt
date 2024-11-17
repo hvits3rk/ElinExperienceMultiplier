@@ -12,5 +12,6 @@ By default, the multiplier is set to [b]2x[/b].
 [list]
     [*][strike]Select who will receive the experience multiplier[/strike]
     [*][strike]Potential multiplier and potential max value[/strike]
+    [*][strike]Potential loss multiplier on level up[/strike]
     [*]Settings modification without game restart
 [/list]

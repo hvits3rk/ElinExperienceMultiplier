@@ -2,7 +2,7 @@
 using System.Reflection.Emit;
 using HarmonyLib;
 
-namespace ExperienceMultiplier;
+namespace ExperienceMultiplier.Patches;
 
 public class AI_IdlePatches
 {

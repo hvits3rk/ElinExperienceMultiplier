@@ -4,7 +4,7 @@
         <TargetFramework>net472</TargetFramework>
         <AssemblyName>ExperienceMultiplier</AssemblyName>
         <Product>Experience Multiplier</Product>
-        <Version>0.23.29.1</Version>
+        <Version>0.23.31.1</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
         <RestoreAdditionalProjectSources>
@@ -52,5 +52,10 @@
 
     <ItemGroup>
       <Compile Remove="UISettingsWindow.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="SteamDescription.txt" />
+      <None Remove=".gitignore" />
     </ItemGroup>
 </Project>
