@@ -5,7 +5,7 @@ using HarmonyLib;
 
 namespace ExperienceMultiplier;
 
-[BepInPlugin("hvits3rk.experiencemultiplier", "Experience Multiplier", "0.23.31.1")]
+[BepInPlugin("hvits3rk.experiencemultiplier", "Experience Multiplier", "0.23.42.1")]
 public class PluginExperienceMultiplier : BaseUnityPlugin
 {
     internal static new ManualLogSource Logger;

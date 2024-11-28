@@ -49,4 +49,31 @@ public static class ElementExtensions
         if (element.source == null) return false;
         return element.source.category == "skill" && element.source.categorySub == "labor";
     }
+
+    public static bool IsSpellAbility(this Element element)
+    {
+        if (element.source == null) return false;
+        return element.source.group == "SPELL" && element.source.category == "ability";
+    }
+
+    public static bool IsSpellAbilityBuff(this Element element)
+    {
+        if (element.source == null) return false;
+        return element.source.group == "SPELL" && element.source.category == "ability" &&
+               (element.source.abilityType.Contains("buff") || element.source.abilityType.Contains("buffStats"));
+    }
+
+    public static bool IsSpellAbilityHeal(this Element element)
+    {
+        if (element.source == null) return false;
+        return element.source.group == "SPELL" && element.source.category == "ability" &&
+               (element.source.abilityType.Contains("heal") || element.source.abilityType.Contains("hot"));
+    }
+
+    public static bool IsSpellAbilityCure(this Element element)
+    {
+        if (element.source == null) return false;
+        return element.source.group == "SPELL" && element.source.category == "ability" &&
+               (element.source.abilityType.Contains("heal") || element.source.abilityType.Contains("cure"));
+    }
 }

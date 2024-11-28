@@ -32,7 +32,7 @@ public class ElementContainerPatches
                 new CodeMatch(OpCodes.Ldloc_1),
                 new CodeMatch(OpCodes.Ldc_I4_S),
                 new CodeMatch(OpCodes.Ldc_I4)
-                )
+            )
             .Advance(3)
             .SetOperandAndAdvance(PluginSettings.MaxPotential.Value)
             .MatchForward(false,
@@ -69,8 +69,7 @@ public class ElementContainerPatches
 
     [HarmonyTranspiler]
     [HarmonyPatch(typeof(ElementContainer), nameof(ElementContainer.ModPotential))]
-    public static IEnumerable<CodeInstruction> ElementContainerModPotential_Transpiler(
-        IEnumerable<CodeInstruction> instructions)
+    public static IEnumerable<CodeInstruction> ElementContainerModPotential_Transpiler(IEnumerable<CodeInstruction> instructions)
     {
         return new CodeMatcher(instructions)
             .MatchForward(false,
@@ -124,7 +123,7 @@ public class ElementContainerPatches
     public static int PotentialLossValue(Element element)
     {
         var value = element.vTempPotential / 4 + EClass.rnd(5) + 5;
-        
+
         return ResultMultipliedValue(element, value, PotentialLossMultiplierValueResolver, ResultValueResolver);
     }
 
@@ -226,6 +225,11 @@ public class ElementContainerPatches
             multiplier = PluginSettings.ExperienceMultiplierSkillLabor.Value;
         }
 
+        if (element.IsSpellAbility())
+        {
+            multiplier = PluginSettings.ExperienceMultiplierSpellAbility.Value;
+        }
+
         return Mathf.RoundToInt(value * multiplier);
     }
 
@@ -247,30 +251,35 @@ public class ElementContainerPatches
         {
             multiplier = PluginSettings.PotentialMultiplierSkillCombat.Value;
         }
-        
+
         if (element.IsSkillCraft())
         {
             multiplier = PluginSettings.PotentialMultiplierSkillCraft.Value;
         }
-        
+
         if (element.IsSkillGeneral())
         {
             multiplier = PluginSettings.PotentialMultiplierSkillGeneral.Value;
         }
-        
+
         if (element.IsSkillMind())
         {
             multiplier = PluginSettings.PotentialMultiplierSkillMind.Value;
         }
-        
+
         if (element.IsSkillStealth())
         {
             multiplier = PluginSettings.PotentialMultiplierSkillStealth.Value;
         }
-        
+
         if (element.IsSkillLabor())
         {
             multiplier = PluginSettings.PotentialMultiplierSkillLabor.Value;
+        }
+
+        if (element.IsSpellAbility())
+        {
+            multiplier = PluginSettings.PotentialMultiplierSpellAbility.Value;
         }
 
         return Mathf.RoundToInt(value * multiplier);
@@ -289,35 +298,40 @@ public class ElementContainerPatches
         {
             multiplier = PluginSettings.PotentialLossMultiplierSkillWeapon.Value;
         }
-        
+
         if (element.IsSkillCombat())
         {
             multiplier = PluginSettings.PotentialLossMultiplierSkillCombat.Value;
         }
-        
+
         if (element.IsSkillCraft())
         {
             multiplier = PluginSettings.PotentialLossMultiplierSkillCraft.Value;
         }
-        
+
         if (element.IsSkillGeneral())
         {
             multiplier = PluginSettings.PotentialLossMultiplierSkillGeneral.Value;
         }
-        
+
         if (element.IsSkillMind())
         {
             multiplier = PluginSettings.PotentialLossMultiplierSkillMind.Value;
         }
-        
+
         if (element.IsSkillStealth())
         {
             multiplier = PluginSettings.PotentialLossMultiplierSkillStealth.Value;
         }
-        
+
         if (element.IsSkillLabor())
         {
             multiplier = PluginSettings.PotentialLossMultiplierSkillLabor.Value;
+        }
+
+        if (element.IsSpellAbility())
+        {
+            multiplier = PluginSettings.PotentialLossMultiplierSpellAbility.Value;
         }
 
         return Mathf.RoundToInt(value * multiplier);

@@ -22,6 +22,7 @@ public class PluginSettings
         ExperienceMultiplierSkillCraftConfig(config);
         ExperienceMultiplierSkillStealthConfig(config);
         ExperienceMultiplierSkillLaborConfig(config);
+        ExperienceMultiplierSpellAbilityConfig(config);
 
         MaxPotentialConfig(config);
 
@@ -33,6 +34,7 @@ public class PluginSettings
         PotentialMultiplierSkillCraftConfig(config);
         PotentialMultiplierSkillStealthConfig(config);
         PotentialMultiplierSkillLaborConfig(config);
+        PotentialMultiplierSpellAbilityConfig(config);
 
         PotentialLossMultiplierMainAttributeConfig(config);
         PotentialLossMultiplierSkillGeneralConfig(config);
@@ -42,6 +44,7 @@ public class PluginSettings
         PotentialLossMultiplierSkillCraftConfig(config);
         PotentialLossMultiplierSkillStealthConfig(config);
         PotentialLossMultiplierSkillLaborConfig(config);
+        PotentialLossMultiplierSpellAbilityConfig(config);
     }
 
     #region CharacterType
@@ -119,6 +122,7 @@ public class PluginSettings
     public static ConfigEntry<float> ExperienceMultiplierSkillCraft;
     public static ConfigEntry<float> ExperienceMultiplierSkillStealth;
     public static ConfigEntry<float> ExperienceMultiplierSkillLabor;
+    public static ConfigEntry<float> ExperienceMultiplierSpellAbility;
 
     private static void ExperienceMultiplierMainAttributeConfig(ConfigFile config)
     {
@@ -216,6 +220,18 @@ public class PluginSettings
         ExperienceMultiplierSkillLabor = config.Bind(definition, defaultValue, description);
     }
 
+    private static void ExperienceMultiplierSpellAbilityConfig(ConfigFile config)
+    {
+        const float minDefault = 0.1f;
+        const float maxDefault = 1000.0f;
+        const float defaultValue = 2.0f;
+
+        var definition = new ConfigDefinition("ExperienceMultiplier", "SpellAbility");
+        var description = new ConfigDescription("Multiplier for spell abilities experience gain.",
+            new AcceptableValueRange<float>(minDefault, maxDefault));
+        ExperienceMultiplierSpellAbility = config.Bind(definition, defaultValue, description);
+    }
+
     #endregion
 
     #region Potential
@@ -230,6 +246,7 @@ public class PluginSettings
     public static ConfigEntry<float> PotentialMultiplierSkillCraft;
     public static ConfigEntry<float> PotentialMultiplierSkillStealth;
     public static ConfigEntry<float> PotentialMultiplierSkillLabor;
+    public static ConfigEntry<float> PotentialMultiplierSpellAbility;
 
     public static ConfigEntry<float> PotentialLossMultiplierMainAttributes;
     public static ConfigEntry<float> PotentialLossMultiplierSkillGeneral;
@@ -239,6 +256,7 @@ public class PluginSettings
     public static ConfigEntry<float> PotentialLossMultiplierSkillCraft;
     public static ConfigEntry<float> PotentialLossMultiplierSkillStealth;
     public static ConfigEntry<float> PotentialLossMultiplierSkillLabor;
+    public static ConfigEntry<float> PotentialLossMultiplierSpellAbility;
 
     private static void MaxPotentialConfig(ConfigFile config)
     {
@@ -349,6 +367,18 @@ public class PluginSettings
         PotentialMultiplierSkillLabor = config.Bind(definition, defaultValue, description);
     }
 
+    private static void PotentialMultiplierSpellAbilityConfig(ConfigFile config)
+    {
+        const float minDefault = 0.1f;
+        const float maxDefault = 1000.0f;
+        const float defaultValue = 1.0f;
+
+        var definition = new ConfigDefinition("PotentialMultiplier", "SpellAbility");
+        var description = new ConfigDescription("Multiplier for spell abilities potential gain.",
+            new AcceptableValueRange<float>(minDefault, maxDefault));
+        PotentialMultiplierSpellAbility = config.Bind(definition, defaultValue, description);
+    }
+
     private static void PotentialLossMultiplierMainAttributeConfig(ConfigFile config)
     {
         const float minDefault = 0.0f;
@@ -444,6 +474,18 @@ public class PluginSettings
         var description = new ConfigDescription("Multiplier for labor skills potential loss.",
             new AcceptableValueRange<float>(minDefault, maxDefault));
         PotentialLossMultiplierSkillLabor = config.Bind(definition, defaultValue, description);
+    }
+
+    private static void PotentialLossMultiplierSpellAbilityConfig(ConfigFile config)
+    {
+        const float minDefault = 0.0f;
+        const float maxDefault = 10.0f;
+        const float defaultValue = 1.0f;
+
+        var definition = new ConfigDefinition("PotentialLossMultiplier", "SpellAbility");
+        var description = new ConfigDescription("Multiplier for spell abilities potential loss.",
+            new AcceptableValueRange<float>(minDefault, maxDefault));
+        PotentialLossMultiplierSpellAbility = config.Bind(definition, defaultValue, description);
     }
 
     #endregion

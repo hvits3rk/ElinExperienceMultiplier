@@ -4,7 +4,7 @@
         <TargetFramework>net472</TargetFramework>
         <AssemblyName>ExperienceMultiplier</AssemblyName>
         <Product>Experience Multiplier</Product>
-        <Version>0.23.31.1</Version>
+        <Version>0.23.42.1</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
         <RestoreAdditionalProjectSources>
