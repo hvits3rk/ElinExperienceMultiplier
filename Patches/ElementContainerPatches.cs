@@ -23,18 +23,19 @@ public class ElementContainerPatches
 
     [HarmonyTranspiler]
     [HarmonyPatch(typeof(ElementContainer), nameof(ElementContainer.ModExp))]
-    public static IEnumerable<CodeInstruction> ElementContainerModExp_Transpiler(
-        IEnumerable<CodeInstruction> instructions)
+    public static IEnumerable<CodeInstruction> ElementContainerModExp_Transpiler(IEnumerable<CodeInstruction> instructions)
     {
         return new CodeMatcher(instructions)
+            // float num2 = (float) a * (float) Mathf.Clamp(num1, 10, 1000) / (float) (100 + Mathf.Max(0, element.ValueWithoutLink) * 25);
             .MatchForward(false,
-                new CodeMatch(OpCodes.Ldarg_2),
                 new CodeMatch(OpCodes.Ldloc_1),
                 new CodeMatch(OpCodes.Ldc_I4_S),
-                new CodeMatch(OpCodes.Ldc_I4)
+                new CodeMatch(OpCodes.Ldc_I4),
+                new CodeMatch(OpCodes.Call)
             )
-            .Advance(3)
+            .Advance(2)
             .SetOperandAndAdvance(PluginSettings.MaxPotential.Value)
+            // element.vTempPotential -= element.vTempPotential / 4 + EClass.rnd(5) + 5;
             .MatchForward(false,
                 new CodeMatch(OpCodes.Ldloc_0),
                 new CodeMatch(OpCodes.Dup),

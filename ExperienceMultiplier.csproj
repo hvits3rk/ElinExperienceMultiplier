@@ -2,9 +2,9 @@
 
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
-        <AssemblyName>ExperienceMultiplier</AssemblyName>
+        <AssemblyName>hvits3rk.experiencemultiplier</AssemblyName>
         <Product>Experience Multiplier</Product>
-        <Version>0.23.42.1</Version>
+        <Version>0.23.75.1</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
         <RestoreAdditionalProjectSources>
