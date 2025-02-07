@@ -5,13 +5,11 @@ The configuration file will be generated after the game is launched.
 Close the game and edit the settings file, which is located at:
 [i]<SteamLibraryPath>/steamapps/common/Elin/BepInEx/config/hvits3rk.experiencemultiplier.cfg[/i]
 
-By default, the multiplier is set to [b]2x[/b].
-
 [hr][/hr]
 [h3]TODO[/h3]
 [list]
     [*][strike]Select who will receive the experience multiplier[/strike]
     [*][strike]Potential multiplier and potential max value[/strike]
     [*][strike]Potential loss multiplier on level up[/strike]
-    [*]Settings modification without game restart
+    [*][strike]Settings modification without game restart[/strike]
 [/list]

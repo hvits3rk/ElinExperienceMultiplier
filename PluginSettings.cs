@@ -1,5 +1,4 @@
-﻿using System;
-using BepInEx.Configuration;
+﻿using BepInEx.Configuration;
 
 namespace ExperienceMultiplier;
 
@@ -47,7 +46,7 @@ public class PluginSettings
         PotentialLossMultiplierSpellAbilityConfig(config);
     }
 
-    #region CharacterType
+    #region Affected characters
 
     public static ConfigEntry<bool> MainCharacter;
     public static ConfigEntry<bool> Faction;
@@ -60,8 +59,8 @@ public class PluginSettings
     {
         const bool defaultValue = true;
 
-        var definition = new ConfigDefinition("CharacterType", "MainCharacter");
-        var description = new ConfigDescription("Is Main Character will be affected.");
+        var definition = new ConfigDefinition("Affected characters", "Player character");
+        var description = new ConfigDescription("Is main character will be affected.");
         MainCharacter = config.Bind(definition, defaultValue, description);
     }
 
@@ -69,8 +68,8 @@ public class PluginSettings
     {
         const bool defaultValue = false;
 
-        var definition = new ConfigDefinition("CharacterType", "Faction");
-        var description = new ConfigDescription("Is Player Faction will be affected.");
+        var definition = new ConfigDefinition("Affected characters", "Player faction");
+        var description = new ConfigDescription("Is player faction will be affected.");
         Faction = config.Bind(definition, defaultValue, description);
     }
 
@@ -78,17 +77,17 @@ public class PluginSettings
     {
         const bool defaultValue = false;
 
-        var definition = new ConfigDefinition("CharacterType", "Party");
-        var description = new ConfigDescription("Is Player Party will be affected.");
+        var definition = new ConfigDefinition("Affected characters", "Player party");
+        var description = new ConfigDescription("Is player party will be affected.");
         Party = config.Bind(definition, defaultValue, description);
     }
 
     private static void PlayerMinionConfig(ConfigFile config)
     {
-        const bool defaultValue = false;
+        const bool defaultValue = true;
 
-        var definition = new ConfigDefinition("CharacterType", "PlayerMinion");
-        var description = new ConfigDescription("Is Player Minion will be affected.");
+        var definition = new ConfigDefinition("Affected characters", "Player minion");
+        var description = new ConfigDescription("Is player pinion will be affected.");
         PlayerMinion = config.Bind(definition, defaultValue, description);
     }
 
@@ -96,8 +95,8 @@ public class PluginSettings
     {
         const bool defaultValue = false;
 
-        var definition = new ConfigDefinition("CharacterType", "FactionMinion");
-        var description = new ConfigDescription("Is Faction Minion will be affected.");
+        var definition = new ConfigDefinition("Affected characters", "Player faction minion");
+        var description = new ConfigDescription("Is player faction minion will be affected.");
         FactionMinion = config.Bind(definition, defaultValue, description);
     }
 
@@ -105,8 +104,8 @@ public class PluginSettings
     {
         const bool defaultValue = false;
 
-        var definition = new ConfigDefinition("CharacterType", "PartyMinion");
-        var description = new ConfigDescription("Is Party Minion will be affected.");
+        var definition = new ConfigDefinition("Affected characters", "Player party minion");
+        var description = new ConfigDescription("Is player party minion will be affected.");
         PartyMinion = config.Bind(definition, defaultValue, description);
     }
 
@@ -126,109 +125,82 @@ public class PluginSettings
 
     private static void ExperienceMultiplierMainAttributeConfig(ConfigFile config)
     {
-        const float minDefault = 0.1f;
-        const float maxDefault = 1000.0f;
-        const float defaultValue = 2.0f;
+        const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("ExperienceMultiplier", "MainAttributes");
-        var description = new ConfigDescription("Multiplier for main attributes experience gain.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Experience multipliers", "Attributes");
+        var description = new ConfigDescription("Multiplier for attributes experience gain.");
         ExperienceMultiplierMainAttributes = config.Bind(definition, defaultValue, description);
     }
 
     private static void ExperienceMultiplierSkillGeneralConfig(ConfigFile config)
     {
-        const float minDefault = 0.1f;
-        const float maxDefault = 1000.0f;
-        const float defaultValue = 2.0f;
+        const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("ExperienceMultiplier", "SkillGeneral");
-        var description = new ConfigDescription("Multiplier for general skills experience gain.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Experience multipliers", "General skills");
+        var description = new ConfigDescription("Multiplier for general skills experience gain.");
         ExperienceMultiplierSkillGeneral = config.Bind(definition, defaultValue, description);
     }
 
     private static void ExperienceMultiplierSkillMindConfig(ConfigFile config)
     {
-        const float minDefault = 0.1f;
-        const float maxDefault = 1000.0f;
-        const float defaultValue = 2.0f;
+        const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("ExperienceMultiplier", "SkillMind");
-        var description = new ConfigDescription("Multiplier for mind skills experience gain.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Experience multipliers", "Mind skills");
+        var description = new ConfigDescription("Multiplier for mind skills experience gain.");
         ExperienceMultiplierSkillMind = config.Bind(definition, defaultValue, description);
     }
 
     private static void ExperienceMultiplierSkillWeaponConfig(ConfigFile config)
     {
-        const float minDefault = 0.1f;
-        const float maxDefault = 1000.0f;
-        const float defaultValue = 2.0f;
+        const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("ExperienceMultiplier", "SkillWeapon");
-        var description = new ConfigDescription("Multiplier for weapon skills experience gain.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Experience multipliers", "Weapon skills");
+        var description = new ConfigDescription("Multiplier for weapon skills experience gain.");
         ExperienceMultiplierSkillWeapon = config.Bind(definition, defaultValue, description);
     }
 
     private static void ExperienceMultiplierSkillCombatConfig(ConfigFile config)
     {
-        const float minDefault = 0.1f;
-        const float maxDefault = 1000.0f;
-        const float defaultValue = 2.0f;
+        const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("ExperienceMultiplier", "SkillCombat");
-        var description = new ConfigDescription("Multiplier for combat skills experience gain.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Experience multipliers", "Combat skills");
+        var description = new ConfigDescription("Multiplier for combat skills experience gain.");
         ExperienceMultiplierSkillCombat = config.Bind(definition, defaultValue, description);
     }
 
     private static void ExperienceMultiplierSkillCraftConfig(ConfigFile config)
     {
-        const float minDefault = 0.1f;
-        const float maxDefault = 1000.0f;
-        const float defaultValue = 2.0f;
+        const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("ExperienceMultiplier", "SkillCraft");
-        var description = new ConfigDescription("Multiplier for craft skills experience gain.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Experience multipliers", "Craft skills");
+        var description = new ConfigDescription("Multiplier for craft skills experience gain.");
         ExperienceMultiplierSkillCraft = config.Bind(definition, defaultValue, description);
     }
 
     private static void ExperienceMultiplierSkillStealthConfig(ConfigFile config)
     {
-        const float minDefault = 0.1f;
-        const float maxDefault = 1000.0f;
-        const float defaultValue = 2.0f;
+        const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("ExperienceMultiplier", "SkillStealth");
-        var description = new ConfigDescription("Multiplier for stealth skills experience gain.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Experience multipliers", "Stealth skills");
+        var description = new ConfigDescription("Multiplier for stealth skills experience gain.");
         ExperienceMultiplierSkillStealth = config.Bind(definition, defaultValue, description);
     }
 
     private static void ExperienceMultiplierSkillLaborConfig(ConfigFile config)
     {
-        const float minDefault = 0.1f;
-        const float maxDefault = 1000.0f;
-        const float defaultValue = 2.0f;
+        const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("ExperienceMultiplier", "SkillLabor");
-        var description = new ConfigDescription("Multiplier for labor skills experience gain.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Experience multipliers", "Labor skills");
+        var description = new ConfigDescription("Multiplier for labor skills experience gain.");
         ExperienceMultiplierSkillLabor = config.Bind(definition, defaultValue, description);
     }
 
     private static void ExperienceMultiplierSpellAbilityConfig(ConfigFile config)
     {
-        const float minDefault = 0.1f;
-        const float maxDefault = 1000.0f;
-        const float defaultValue = 2.0f;
+        const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("ExperienceMultiplier", "SpellAbility");
-        var description = new ConfigDescription("Multiplier for spell abilities experience gain.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Experience multipliers", "Spell abilities skills");
+        var description = new ConfigDescription("Multiplier for spell abilities skills experience gain.");
         ExperienceMultiplierSpellAbility = config.Bind(definition, defaultValue, description);
     }
 
@@ -260,231 +232,174 @@ public class PluginSettings
 
     private static void MaxPotentialConfig(ConfigFile config)
     {
-        const int minDefault = 10;
-        const int maxDefault = Int32.MaxValue;
         const int defaultValue = 1000;
 
-        var definition = new ConfigDefinition("Potential", "MaxPotential");
-        var description = new ConfigDescription("Maximum potential value.",
-            new AcceptableValueRange<int>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Potential constants", "Max potential");
+        var description = new ConfigDescription("Maximum potential value.");
         MaxPotential = config.Bind(definition, defaultValue, description);
     }
 
     private static void PotentialMultiplierMainAttributeConfig(ConfigFile config)
     {
-        const float minDefault = 0.1f;
-        const float maxDefault = 1000.0f;
         const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("PotentialMultiplier", "MainAttributes");
-        var description = new ConfigDescription("Multiplier for main attributes potential gain.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Potential multipliers", "MainAttributes");
+        var description = new ConfigDescription("Multiplier for main attributes potential gain.");
 
         PotentialMultiplierMainAttributes = config.Bind(definition, defaultValue, description);
     }
 
     private static void PotentialMultiplierSkillGeneralConfig(ConfigFile config)
     {
-        const float minDefault = 0.1f;
-        const float maxDefault = 1000.0f;
         const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("PotentialMultiplier", "SkillGeneral");
-        var description = new ConfigDescription("Multiplier for general skills potential gain.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Potential multipliers", "General skills");
+        var description = new ConfigDescription("Multiplier for general skills potential gain.");
         PotentialMultiplierSkillGeneral = config.Bind(definition, defaultValue, description);
     }
 
     private static void PotentialMultiplierSkillMindConfig(ConfigFile config)
     {
-        const float minDefault = 0.1f;
-        const float maxDefault = 1000.0f;
         const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("PotentialMultiplier", "SkillMind");
-        var description = new ConfigDescription("Multiplier for mind skills potential gain.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Potential multipliers", "Mind skills");
+        var description = new ConfigDescription("Multiplier for mind skills potential gain.");
         PotentialMultiplierSkillMind = config.Bind(definition, defaultValue, description);
     }
 
     private static void PotentialMultiplierSkillWeaponConfig(ConfigFile config)
     {
-        const float minDefault = 0.1f;
-        const float maxDefault = 1000.0f;
         const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("PotentialMultiplier", "SkillWeapon");
-        var description = new ConfigDescription("Multiplier for weapon skills potential gain.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Potential multipliers", "Weapon skills");
+        var description = new ConfigDescription("Multiplier for weapon skills potential gain.");
         PotentialMultiplierSkillWeapon = config.Bind(definition, defaultValue, description);
     }
 
     private static void PotentialMultiplierSkillCombatConfig(ConfigFile config)
     {
-        const float minDefault = 0.1f;
-        const float maxDefault = 1000.0f;
         const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("PotentialMultiplier", "SkillCombat");
-        var description = new ConfigDescription("Multiplier for combat skills potential gain.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Potential multipliers", "Combat skills");
+        var description = new ConfigDescription("Multiplier for combat skills potential gain.");
         PotentialMultiplierSkillCombat = config.Bind(definition, defaultValue, description);
     }
 
     private static void PotentialMultiplierSkillCraftConfig(ConfigFile config)
     {
-        const float minDefault = 0.1f;
-        const float maxDefault = 1000.0f;
         const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("PotentialMultiplier", "SkillCraft");
-        var description = new ConfigDescription("Multiplier for craft skills potential gain.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Potential multipliers", "Craft skills");
+        var description = new ConfigDescription("Multiplier for craft skills potential gain.");
         PotentialMultiplierSkillCraft = config.Bind(definition, defaultValue, description);
     }
 
     private static void PotentialMultiplierSkillStealthConfig(ConfigFile config)
     {
-        const float minDefault = 0.1f;
-        const float maxDefault = 1000.0f;
         const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("PotentialMultiplier", "SkillStealth");
-        var description = new ConfigDescription("Multiplier for stealth skills potential gain.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Potential multipliers", "Stealth skills");
+        var description = new ConfigDescription("Multiplier for stealth skills potential gain.");
         PotentialMultiplierSkillStealth = config.Bind(definition, defaultValue, description);
     }
 
     private static void PotentialMultiplierSkillLaborConfig(ConfigFile config)
     {
-        const float minDefault = 0.1f;
-        const float maxDefault = 1000.0f;
         const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("PotentialMultiplier", "SkillLabor");
-        var description = new ConfigDescription("Multiplier for labor skills potential gain.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Potential multipliers", "Labor skills");
+        var description = new ConfigDescription("Multiplier for labor skills potential gain.");
         PotentialMultiplierSkillLabor = config.Bind(definition, defaultValue, description);
     }
 
     private static void PotentialMultiplierSpellAbilityConfig(ConfigFile config)
     {
-        const float minDefault = 0.1f;
-        const float maxDefault = 1000.0f;
         const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("PotentialMultiplier", "SpellAbility");
-        var description = new ConfigDescription("Multiplier for spell abilities potential gain.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Potential multipliers", "Spell abilities skills");
+        var description = new ConfigDescription("Multiplier for spell abilities skills potential gain.");
         PotentialMultiplierSpellAbility = config.Bind(definition, defaultValue, description);
     }
 
     private static void PotentialLossMultiplierMainAttributeConfig(ConfigFile config)
     {
-        const float minDefault = 0.0f;
-        const float maxDefault = 10.0f;
         const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("PotentialLossMultiplier", "MainAttributes");
-        var description = new ConfigDescription("Multiplier for main attributes potential loss.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Potential loss multipliers", "Attributes");
+        var description = new ConfigDescription("Multiplier for main attributes potential loss.");
 
         PotentialLossMultiplierMainAttributes = config.Bind(definition, defaultValue, description);
     }
     
     private static void PotentialLossMultiplierSkillGeneralConfig(ConfigFile config)
     {
-        const float minDefault = 0.0f;
-        const float maxDefault = 10.0f;
         const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("PotentialLossMultiplier", "SkillGeneral");
-        var description = new ConfigDescription("Multiplier for general skills potential loss.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Potential loss multipliers", "General skills");
+        var description = new ConfigDescription("Multiplier for general skills potential loss.");
         PotentialLossMultiplierSkillGeneral = config.Bind(definition, defaultValue, description);
     }
 
     private static void PotentialLossMultiplierSkillMindConfig(ConfigFile config)
     {
-        const float minDefault = 0.0f;
-        const float maxDefault = 10.0f;
         const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("PotentialLossMultiplier", "SkillMind");
-        var description = new ConfigDescription("Multiplier for mind skills potential loss.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Potential loss multipliers", "Mind skills");
+        var description = new ConfigDescription("Multiplier for mind skills potential loss.");
         PotentialLossMultiplierSkillMind = config.Bind(definition, defaultValue, description);
     }
 
     private static void PotentialLossMultiplierSkillWeaponConfig(ConfigFile config)
     {
-        const float minDefault = 0.0f;
-        const float maxDefault = 10.0f;
         const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("PotentialLossMultiplier", "SkillWeapon");
-        var description = new ConfigDescription("Multiplier for weapon skills potential loss.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Potential loss multipliers", "Weapon skills");
+        var description = new ConfigDescription("Multiplier for weapon skills potential loss.");
         PotentialLossMultiplierSkillWeapon = config.Bind(definition, defaultValue, description);
     }
 
     private static void PotentialLossMultiplierSkillCombatConfig(ConfigFile config)
     {
-        const float minDefault = 0.0f;
-        const float maxDefault = 10.0f;
         const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("PotentialLossMultiplier", "SkillCombat");
-        var description = new ConfigDescription("Multiplier for combat skills potential loss.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Potential loss multipliers", "Combat skills");
+        var description = new ConfigDescription("Multiplier for combat skills potential loss.");
         PotentialLossMultiplierSkillCombat = config.Bind(definition, defaultValue, description);
     }
 
     private static void PotentialLossMultiplierSkillCraftConfig(ConfigFile config)
     {
-        const float minDefault = 0.0f;
-        const float maxDefault = 10.0f;
         const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("PotentialLossMultiplier", "SkillCraft");
-        var description = new ConfigDescription("Multiplier for craft skills potential loss.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Potential loss multipliers", "Craft skills");
+        var description = new ConfigDescription("Multiplier for craft skills potential loss.");
         PotentialLossMultiplierSkillCraft = config.Bind(definition, defaultValue, description);
     }
 
     private static void PotentialLossMultiplierSkillStealthConfig(ConfigFile config)
     {
-        const float minDefault = 0.0f;
-        const float maxDefault = 10.0f;
         const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("PotentialLossMultiplier", "SkillStealth");
-        var description = new ConfigDescription("Multiplier for stealth skills potential loss.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Potential loss multipliers", "Stealth skills");
+        var description = new ConfigDescription("Multiplier for stealth skills potential loss.");
         PotentialLossMultiplierSkillStealth = config.Bind(definition, defaultValue, description);
     }
 
     private static void PotentialLossMultiplierSkillLaborConfig(ConfigFile config)
     {
-        const float minDefault = 0.0f;
-        const float maxDefault = 10.0f;
         const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("PotentialLossMultiplier", "SkillLabor");
-        var description = new ConfigDescription("Multiplier for labor skills potential loss.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Potential loss multipliers", "Labor skills");
+        var description = new ConfigDescription("Multiplier for labor skills potential loss.");
         PotentialLossMultiplierSkillLabor = config.Bind(definition, defaultValue, description);
     }
 
     private static void PotentialLossMultiplierSpellAbilityConfig(ConfigFile config)
     {
-        const float minDefault = 0.0f;
-        const float maxDefault = 10.0f;
         const float defaultValue = 1.0f;
 
-        var definition = new ConfigDefinition("PotentialLossMultiplier", "SpellAbility");
-        var description = new ConfigDescription("Multiplier for spell abilities potential loss.",
-            new AcceptableValueRange<float>(minDefault, maxDefault));
+        var definition = new ConfigDefinition("Potential loss multipliers", "Spell abilities skills");
+        var description = new ConfigDescription("Multiplier for spell abilities skills potential loss.");
         PotentialLossMultiplierSpellAbility = config.Bind(definition, defaultValue, description);
     }
 
