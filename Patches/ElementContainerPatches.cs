@@ -26,7 +26,6 @@ public class ElementContainerPatches
     public static IEnumerable<CodeInstruction> ElementContainerModExp_Transpiler(IEnumerable<CodeInstruction> instructions)
     {
         return new CodeMatcher(instructions)
-            // float num2 = (float) a * (float) Mathf.Clamp(num1, 10, 1000) / (float) (100 + Mathf.Max(0, element.ValueWithoutLink) * 25);
             // a = a * (float)Mathf.Clamp(element.UsePotential ? element.Potential : 100, 10, 1000) / (float)(100 + Mathf.Max(0, element.ValueWithoutLink) * 25);
             .MatchForward(false,
                 new CodeMatch(OpCodes.Ldc_I4_S),
