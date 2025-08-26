@@ -18,7 +18,7 @@ public class ElementContainerPatches
 
         if (chara == null || !chara.isChara || chara.isDead || element == null) return;
 
-        a = ResultMultipliedValue(element, (int) a, ExperienceMultiplierValueResolver, ResultValueResolver);
+        a = ResultMultipliedValue(element, Mathf.RoundToInt(a), ExperienceMultiplierValueResolver, ResultValueResolver);
     }
 
     [HarmonyTranspiler]
