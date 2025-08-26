@@ -11,14 +11,14 @@ public class ElementContainerPatches
 {
     [HarmonyPrefix]
     [HarmonyPatch(typeof(ElementContainer), nameof(ElementContainer.ModExp))]
-    public static void ElementContainerModExp_Prefix(ref ElementContainer __instance, int ele, ref int a, bool chain)
+    public static void ElementContainerModExp_Prefix(ref ElementContainer __instance, int ele, ref float a, bool chain)
     {
         var chara = __instance.Chara;
         var element = __instance.GetElement(ele);
 
         if (chara == null || !chara.isChara || chara.isDead || element == null) return;
 
-        a = ResultMultipliedValue(element, a, ExperienceMultiplierValueResolver, ResultValueResolver);
+        a = ResultMultipliedValue(element, (int) a, ExperienceMultiplierValueResolver, ResultValueResolver);
     }
 
     [HarmonyTranspiler]
@@ -27,13 +27,14 @@ public class ElementContainerPatches
     {
         return new CodeMatcher(instructions)
             // float num2 = (float) a * (float) Mathf.Clamp(num1, 10, 1000) / (float) (100 + Mathf.Max(0, element.ValueWithoutLink) * 25);
+            // a = a * (float)Mathf.Clamp(element.UsePotential ? element.Potential : 100, 10, 1000) / (float)(100 + Mathf.Max(0, element.ValueWithoutLink) * 25);
             .MatchForward(false,
-                new CodeMatch(OpCodes.Ldloc_1),
                 new CodeMatch(OpCodes.Ldc_I4_S),
                 new CodeMatch(OpCodes.Ldc_I4),
-                new CodeMatch(OpCodes.Call)
+                new CodeMatch(OpCodes.Call),
+                new CodeMatch(OpCodes.Conv_R4)
             )
-            .Advance(2)
+            .Advance(-2)
             .SetOperandAndAdvance(PluginSettings.MaxPotential.Value)
             // element.vTempPotential -= element.vTempPotential / 4 + EClass.rnd(5) + 5;
             .MatchForward(false,
