@@ -4,7 +4,7 @@
         <TargetFramework>net472</TargetFramework>
         <AssemblyName>hvits3rk.experiencemultiplier</AssemblyName>
         <Product>Experience Multiplier</Product>
-        <Version>0.23.83.1</Version>
+        <Version>0.23.187.1</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
         <RestoreAdditionalProjectSources>
@@ -28,25 +28,25 @@
 
     <ItemGroup>
         <Reference Include="0Harmony">
-          <HintPath>..\_libs\0Harmony.dll</HintPath>
+          <HintPath>D:\SteamLibrary\steamapps\common\Elin\BepInEx\core\0Harmony.dll</HintPath>
         </Reference>
         <Reference Include="BepInEx.Core">
-          <HintPath>..\_libs\BepInEx.Core.dll</HintPath>
+          <HintPath>D:\SteamLibrary\steamapps\common\Elin\BepInEx\core\BepInEx.Core.dll</HintPath>
         </Reference>
         <Reference Include="BepInEx.Unity">
-            <HintPath>..\_libs\BepInEx.Unity.dll</HintPath>
+            <HintPath>D:\SteamLibrary\steamapps\common\Elin\BepInEx\core\BepInEx.Unity.dll</HintPath>
         </Reference>
         <Reference Include="Elin">
-            <HintPath>..\_libs\Elin.dll</HintPath>
+            <HintPath>D:\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\Elin.dll</HintPath>
         </Reference>
         <Reference Include="Plugins.BaseCore">
-            <HintPath>..\_libs\Plugins.BaseCore.dll</HintPath>
+            <HintPath>D:\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\Plugins.BaseCore.dll</HintPath>
         </Reference>
         <Reference Include="Plugins.UI">
-          <HintPath>..\_libs\Plugins.UI.dll</HintPath>
+          <HintPath>D:\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\Plugins.UI.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UI">
-          <HintPath>..\_libs\UnityEngine.UI.dll</HintPath>
+          <HintPath>D:\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\UnityEngine.UI.dll</HintPath>
         </Reference>
     </ItemGroup>
 

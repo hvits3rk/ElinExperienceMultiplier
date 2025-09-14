@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
+using UnityEngine;
 
 namespace ExperienceMultiplier.Patches;
 
@@ -16,7 +17,13 @@ public class AI_IdlePatches
                 new CodeMatch(OpCodes.Ldfld),
                 new CodeMatch(OpCodes.Ldc_I4, 900))
             .Advance(2)
-            .SetOperandAndAdvance(PluginSettings.MaxPotential.Value - 100)
+            .RemoveInstruction()
+            .Insert(new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(AI_IdlePatches), nameof(GetMaxPotential))))
             .InstructionEnumeration();
+    }
+
+    public static int GetMaxPotential()
+    {
+        return Mathf.Clamp(PluginSettings.MaxPotential.Value - 100, 0, PluginSettings.MaxPotential.Value - 100);
     }
 }

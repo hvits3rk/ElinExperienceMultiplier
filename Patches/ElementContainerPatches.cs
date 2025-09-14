@@ -26,15 +26,17 @@ public class ElementContainerPatches
     public static IEnumerable<CodeInstruction> ElementContainerModExp_Transpiler(IEnumerable<CodeInstruction> instructions)
     {
         return new CodeMatcher(instructions)
-            // float num2 = (float) a * (float) Mathf.Clamp(num1, 10, 1000) / (float) (100 + Mathf.Max(0, element.ValueWithoutLink) * 25);
+            // a = a * (float) Mathf.Clamp(element.UsePotential ? element.Potential : 100, 10, 1000) / (float) (100 + Mathf.Max(0, element.ValueWithoutLink) * 25);
             .MatchForward(false,
-                new CodeMatch(OpCodes.Ldloc_1),
+                new CodeMatch(OpCodes.Ldloc_0),
+                new CodeMatch(OpCodes.Callvirt),
                 new CodeMatch(OpCodes.Ldc_I4_S),
                 new CodeMatch(OpCodes.Ldc_I4),
                 new CodeMatch(OpCodes.Call)
             )
-            .Advance(2)
-            .SetOperandAndAdvance(PluginSettings.MaxPotential.Value)
+            .Advance(3)
+            .RemoveInstruction()
+            .Insert(new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(ElementContainerPatches), nameof(GetMaxPotential))))
             // element.vTempPotential -= element.vTempPotential / 4 + EClass.rnd(5) + 5;
             .MatchForward(false,
                 new CodeMatch(OpCodes.Ldloc_0),
@@ -78,13 +80,15 @@ public class ElementContainerPatches
                 new CodeMatch(OpCodes.Ldfld),
                 new CodeMatch(OpCodes.Ldc_I4))
             .Advance(2)
-            .SetOperandAndAdvance(PluginSettings.MaxPotential.Value)
+            .RemoveInstruction()
+            .Insert(new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(ElementContainerPatches), nameof(GetMaxPotential))))
             .MatchForward(false,
                 new CodeMatch(OpCodes.Ldloc_0),
                 new CodeMatch(OpCodes.Ldc_I4),
                 new CodeMatch(OpCodes.Stfld))
             .Advance(1)
-            .SetOperandAndAdvance(PluginSettings.MaxPotential.Value)
+            .RemoveInstruction()
+            .Insert(new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(ElementContainerPatches), nameof(GetMaxPotential))))
             .InstructionEnumeration();
     }
 
@@ -111,13 +115,15 @@ public class ElementContainerPatches
                 new CodeMatch(OpCodes.Ldfld),
                 new CodeMatch(OpCodes.Ldc_I4))
             .Advance(2)
-            .SetOperandAndAdvance(PluginSettings.MaxPotential.Value)
+            .RemoveInstruction()
+            .Insert(new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(ElementContainerPatches), nameof(GetMaxPotential))))
             .MatchForward(false,
                 new CodeMatch(OpCodes.Ldloc_0),
                 new CodeMatch(OpCodes.Ldc_I4),
                 new CodeMatch(OpCodes.Stfld))
             .Advance(1)
-            .SetOperandAndAdvance(PluginSettings.MaxPotential.Value)
+            .RemoveInstruction()
+            .Insert(new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(ElementContainerPatches), nameof(GetMaxPotential))))
             .InstructionEnumeration();
     }
 
@@ -336,5 +342,10 @@ public class ElementContainerPatches
         }
 
         return Mathf.RoundToInt(value * multiplier);
+    }
+
+    public static int GetMaxPotential()
+    {
+        return PluginSettings.MaxPotential.Value;
     }
 }
